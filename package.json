@@ -1,14 +1,14 @@
 {
-  "name": "learnir-javascript",
+  "name": "learnir-javascript-sdk",
   "version": "1.0.0",
-  "description": "OpenAPI client for learnir-javascript",
+  "description": "OpenAPI client for learnir-javascript-sdk",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [
     "axios",
     "typescript",
     "openapi-client",
     "openapi-generator",
-    "learnir-javascript"
+    "learnir-javascript-sdk"
   ],
   "license": "Unlicense",
   "main": "./dist/index.js",
