@@ -57,19 +57,19 @@ export interface Consumer {
      * @type {number}
      * @memberof Consumer
      */
-    'id': number;
+    'id'?: number;
     /**
      * 
      * @type {string}
      * @memberof Consumer
      */
-    'name': string;
+    'name'?: string;
     /**
      * 
      * @type {string}
      * @memberof Consumer
      */
-    'email': string;
+    'email'?: string;
 }
 
 /**
