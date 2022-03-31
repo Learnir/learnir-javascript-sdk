@@ -71,6 +71,25 @@ export interface Consumer {
      */
     'email'?: string;
 }
+/**
+ * Record usage of a consumer in your learning experience
+ * @export
+ * @interface Event
+ */
+export interface Event {
+    /**
+     * 
+     * @type {string}
+     * @memberof Event
+     */
+    'consumer'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Event
+     */
+    'event'?: string;
+}
 
 /**
  * LearnirApi - axios parameter creator
@@ -149,6 +168,42 @@ export const LearnirApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * This creates an consumer analytics event, used in showing you how your learning experience is used and performing
+         * @summary Record learning experience event
+         * @param {Event} event 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        record: async (event: Event, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'event' is not null or undefined
+            assertParamExists('record', 'event', event)
+            const localVarPath = `/intergration/sdk/consumer/event`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(event, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -181,6 +236,17 @@ export const LearnirApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.content(consumer, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * This creates an consumer analytics event, used in showing you how your learning experience is used and performing
+         * @summary Record learning experience event
+         * @param {Event} event 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async record(event: Event, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Consumer>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.record(event, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -210,6 +276,16 @@ export const LearnirApiFactory = function (configuration?: Configuration, basePa
          */
         content(consumer?: string, options?: any): AxiosPromise<Array<Box>> {
             return localVarFp.content(consumer, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * This creates an consumer analytics event, used in showing you how your learning experience is used and performing
+         * @summary Record learning experience event
+         * @param {Event} event 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        record(event: Event, options?: any): AxiosPromise<Consumer> {
+            return localVarFp.record(event, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -243,6 +319,18 @@ export class LearnirApi extends BaseAPI {
      */
     public content(consumer?: string, options?: AxiosRequestConfig) {
         return LearnirApiFp(this.configuration).content(consumer, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * This creates an consumer analytics event, used in showing you how your learning experience is used and performing
+     * @summary Record learning experience event
+     * @param {Event} event 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LearnirApi
+     */
+    public record(event: Event, options?: AxiosRequestConfig) {
+        return LearnirApiFp(this.configuration).record(event, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
