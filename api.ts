@@ -70,6 +70,12 @@ export interface Consumer {
      * @memberof Consumer
      */
     'email'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Consumer
+     */
+    'image'?: string;
 }
 /**
  * Record usage of a consumer in your learning experience
@@ -89,6 +95,12 @@ export interface Event {
      * @memberof Event
      */
     'event'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof Event
+     */
+    'context'?: object;
 }
 
 /**
