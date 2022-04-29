@@ -226,7 +226,8 @@ export const LearnirApiAxiosParamCreator = function (configuration?: Configurati
         records: async (consumer: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'consumer' is not null or undefined
             assertParamExists('records', 'consumer', consumer)
-            const localVarPath = `/integration/sdk/consumer/events`;
+            const localVarPath = `/integration/sdk/consumer/events`
+                .replace(`{${"consumer"}}`, encodeURIComponent(String(consumer)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -237,10 +238,6 @@ export const LearnirApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            if (consumer !== undefined) {
-                localVarQueryParameter['consumer'] = consumer;
-            }
 
 
     
